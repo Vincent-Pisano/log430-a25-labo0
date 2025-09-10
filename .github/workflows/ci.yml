@@ -32,6 +32,7 @@ jobs:
       - name: Installer sshpass
         run: sudo apt-get install -y sshpass
 
+      # Ce code ne va pas fonctionner si l'host de la machine virtuelle est une adresse privée
       - name: Déployer via SSH
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
@@ -40,5 +41,4 @@ jobs:
             cd log430-a25-labo0
 
             docker build -t labo0-calculator .
-            docker run -d --name labo0-calculator-container labo0-calculator
           EOF
