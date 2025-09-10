@@ -41,4 +41,9 @@ jobs:
             cd log430-a25-labo0
 
             docker build -t labo0-calculator .
+            
+            docker stop labo0-calculator-container || true
+            docker rm labo0-calculator-container || true
+
+            docker run -d --name labo0-calculator-container labo0-calculator
           EOF

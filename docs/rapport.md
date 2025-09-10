@@ -34,7 +34,7 @@ FAILED tests/test_calculator.py::test_addition_bugged - assert 5 == 6
 - Veuillez inclure la sortie du terminal Gitlab CI dans votre réponse.
 
 - setup :
-  - Il configure l'OS du runner qui va exécuter le workflow, sélectionne l'image à utiliser en fonction des paramètre mis dans le fichier de CI, confirme ses permissions GITHUB et télécharge les actions nécessairent pour exécuter le workflow
+  - Il configure l'OS du runner qui va exécuter le workflow, sélectionne l'image à utiliser en fonction des paramètre mis dans le fichier de CI, confirme ses permissions GITHUB et télécharge les actions nécessaires pour exécuter le workflow
   - ```
     Current runner version: '2.328.0'
     Runner Image Provisioner
@@ -95,7 +95,7 @@ FAILED tests/test_calculator.py::test_addition_bugged - assert 5 == 6
     '59810cb5c54b35f0d0082caed8239eb04b9ec08f'
     ```
 
-## Question 3 - Quel approache et quelles commandes avez-vous exécutées pour automatiser le déploiement continu de l'application dans la machine virtuelle ?
+## Question 3 - Quelle approche et quelles commandes avez-vous exécutées pour automatiser le déploiement continu de l'application dans la machine virtuelle ?
 - Veuillez inclure les sorties du terminal et les scripts bash dans votre réponse.
 
 - J'ai utiliser le script ci-dessous pour me connecter à la machine virtuelle :
@@ -106,6 +106,11 @@ FAILED tests/test_calculator.py::test_addition_bugged - assert 5 == 6
         cd log430-a25-labo0
 
         docker build -t labo0-calculator .
+
+        docker stop labo0-calculator-container || true
+        docker rm labo0-calculator-container || true
+
+        docker run -d --name labo0-calculator-container labo0-calculator
     EOF
     ```
 > [!WARNING] 
@@ -120,6 +125,10 @@ sshpass -p "MON_MOT_DE_PASSE" ssh -o StrictHostKeyChecking=no log430@10.194.32.2
         cd log430-a25-labo0
 
         docker build -t labo0-calculator .
+
+        docker stop labo0-calculator-container || true
+        docker rm labo0-calculator-container || true
+
         docker run -d --name labo0-calculator-container labo0-calculator
 EOF
 Pseudo-terminal will not be allocated because stdin is not a terminal.
@@ -183,6 +192,8 @@ Cloning into 'log430-a25-labo0'...
 #8 writing image sha256:b4f50f9d5374e9a87d59838929fbf9bd2d1d944b3abd9cdff802423a5a8135d3 done
 #8 naming to docker.io/library/labo0-calculator done
 #8 DONE 0.0s
+labo0-calculator-container
+labo0-calculator-container
 05278e5cdf9e5f6d9cd24470bc105eb05ab55c20615ebc48860929459bc789e4
 ```
 
